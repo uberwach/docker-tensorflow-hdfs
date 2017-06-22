@@ -8,7 +8,7 @@
   "container": {
     "type": "MESOS",
     "docker": {
-      "image": "uberwach/tensorflow-gpu-py3-hdfs"
+      "image": "smesosphere05.emea.company.newyorker.de:10005/uberwach/tensorflow-gpu-py3-hdfs"
     }
   }
 }

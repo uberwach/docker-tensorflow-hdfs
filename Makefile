@@ -1,28 +1,19 @@
-gpu: Dockerfile.base.m4 Dockerfile.gpu.m4
-	m4 Dockerfile.gpu.m4 > Dockerfile.gpu
+IMAGE_NAME=uberwach/tensorflow-gpu-py3-hdfs
 
-cpu: Dockerfile.base.m4 Dockerfile.cpu.m4
-	m4 Dockerfile.cpu.m4 > Dockerfile.cpu
+docker_file: Dockerfile.base
 
-.PHONY: build_gpu
-build_gpu: gpu
-	docker build -t adaitche/tensorflow-gpu-py3-hdfs -f Dockerfile.gpu .
+.PHONY: build
+build: docker_file
+	docker build -t $(IMAGE_NAME) -f Dockerfile.base .
 
-.PHONY: build_cpu
-build_cpu: cpu
-	docker build -t adaitche/tensorflow-cpu-py3-hdfs -f Dockerfile.cpu .
-
-.PHONY: push_gpu
-push_gpu: build_gpu
-	docker push adaitche/tensorflow-gpu-py3-hdfs
-
-.PHONY: push_cpu
-push_cpu: build_cpu
-	docker push adaitche/tensorflow-cpu-py3-hdfs
+.PHONY: push
+push: build
+	docker tag $(IMAGE_NAME) smesosphere05.emea.company.newyorker.de:10005/$(IMAGE_NAME)
+	docker push smesosphere05.emea.company.newyorker.de:10005/$(IMAGE_NAME)
 
 .PHONY: all
-all: push_gpu push_cpu
+all: push
 
 .PHONY: clean
 clean:
-	rm -f Docker.gpu Docker.cpu
+	rm -f Docker

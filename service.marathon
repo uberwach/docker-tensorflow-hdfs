@@ -1,0 +1,14 @@
+{
+  "id": "ds/tensorflow-jupyter",
+  "cpus": 8,
+  "gpus": 1,
+  "mem": 8192,
+  "disk": 0,
+  "instances": 1,
+  "container": {
+    "type": "MESOS",
+    "docker": {
+      "image": "uberwach/tensorflow-gpu-py3-hdfs"
+    }
+  }
+}

@@ -1,3 +1,5 @@
+FROM tensorflow/tensorflow:latest-gpu-py3
+
 # Install some tools
 RUN apt-get update && \
     apt-get install -y git
@@ -34,7 +36,9 @@ EXPOSE 6006
 # IPython
 EXPOSE 8888
 
+RUN git clone https://github.com/aymericdamien/TensorFlow-Examples && \
+    cp -r TensorFlow-Examples/notebooks /notebooks
+
 WORKDIR "/notebooks"
-RUN rm -rf /notebooks/*
 
 CMD ["/run_jupyter.sh", "--allow-root", "--port", "8888", "--no-browser"]
